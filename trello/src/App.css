@@ -1,0 +1,86 @@
+:root {
+    --border-height: 70px;
+    --title-color: #D5C381;
+}
+
+.App {
+    background-color: #112632;
+    height: 100vh;
+}
+
+.board {
+    width: 180px;
+    height: 100px;
+    margin-right: 5px;
+    background-color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.border_top {
+    height: var(--border-height);
+    width: 100%;
+    background-color: #214563;
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    width: 30%;
+}
+
+.container_boards {
+    margin: 50px 50px 0 50px;
+    display: flex;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+h2 {
+    margin: 0 0 0 20px;
+}
+
+.input_start {
+    height: 30px;
+    width: 300px;
+    border-radius: 8px;
+    border: none;
+    margin-right: 10px;
+}
+
+.button_start {
+    height: 30px;
+    width: 100px;
+    border-radius: 8px;
+    border: none;
+    margin-left: 10px;
+}
+
+.title {
+    color: white;
+}
+
+ul {
+    padding: 0px;
+}
+
+li {
+    list-style: none;
+}
+
+.card-body {
+    padding: 0.5rem;
+}
+
+.item {
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: lightgrey;
+}
