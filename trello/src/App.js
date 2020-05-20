@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 
-import Board from './Board'
 import Main from './Main'
 
 

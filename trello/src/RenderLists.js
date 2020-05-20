@@ -18,7 +18,6 @@ export default function RenderLists({ items, lists }) {
                     <RenderItems items={items} list={list}/>
                 </Card.Body>
             </Card>
-
         )
     })
 
