@@ -25,8 +25,6 @@ async function getLists() {
     }
 }
 
-//listId:ObjectId(listId)
-
 async function getItems(listId) {
     try {
         const result = await db 
