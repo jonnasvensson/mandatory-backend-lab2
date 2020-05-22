@@ -14,19 +14,13 @@ app.get('/lists', async (req, res) => {
     data ? res.status(200).send(data) : res.status(400).end();
 });
 
-app.get('/lists/:id', async (req, res) => {
+app.get('/items/:listId', async (req, res) => {
     let listId = req.params.id;
     console.log(listId);
     
-    const data = await MONGODB.getLists();
+    const data = await MONGODB.getLists(listId);
     data ? res.status(200).send(listId) : res.status(400).end();
 });
-
-/* app.post('/lists', (req, res) => {
-    let list = req.body.list;
-    const data = await MONGODB.postList();
-
-}) */
 
 app.get('/items', async (req, res) => {
     const data = await MONGODB.getItems();

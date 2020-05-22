@@ -25,19 +25,9 @@ async function getLists() {
     }
 }
 
-async function getList(listId) {
-    try {
-        const result = await db
-        .collection('lists')
-        .findOne({_id: ObjectId(listId)})   // listId skall kolla från server
-        return result;
-    }
-    catch {
-        throw error;
-    }
-}
+//listId:ObjectId(listId)
 
-async function getItems() {
+async function getItems(listId) {
     try {
         const result = await db 
         .collection('items')
@@ -49,29 +39,8 @@ async function getItems() {
     }
 }
 
-async function getItem(listId) {
-    try {
-        const result = await db
-        .collection('items')
-        .find({listId: ObjectId(listId)})
-        return result;
-    } catch {
-        throw error;
-    }
-}
-
-/* async function postList() {
-    try {
-        const result = await db
-        .collection('lists')
-        .insertOne();
-        return result;
-    } catch {
-        throw error;
-    }
-}
- */
-async function postItem(item) { // item kommer från frontend                                                                                                
+async function postItem(item) { // item kommer från frontend     
+    item.listId = ObjectId(item.listId)                                                                                           
     try {
         const result = await db
         .collection('items')
@@ -81,32 +50,14 @@ async function postItem(item) { // item kommer från frontend
     }
 }
 
-async function relations() {
-    try {
-        const resut = await db 
-        .collection('lists')
-        .updateOne({_id: ObjectId(itemId)}, {$push: {
-            'item': item 
-        }})
-        return result;
-    } catch{
-        throw error;
-    }
-}
 
-module.exports.getLists = getLists;
-module.exports.getList = getList;
-
+module.exports.getLists = getLists
 module.exports.getItems = getItems;
-module.exports.getItem = getItem;
-
 module.exports.postItem = postItem;
+//module.exports.deleteList = deleteList;
+//module.exports.deleteItem = deleteItem;
 
-module.exports.relations = relations;
 
-
-
-//module.exports.postList = postList;
 
 
     
