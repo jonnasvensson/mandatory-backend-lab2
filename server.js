@@ -19,6 +19,19 @@ app.get('/items', async (req, res) => {
     data ? res.status(200).send(data) : res.status(400).end();
 })
 
+app.post('/lists/', async (req, res) => {
+    let name = req.body.name;
+    if (!req.body.title === String) {
+        return res.status(400).end();
+    }
+    let newList = {
+        title: req.body.title,
+    }
+const data = await MONGODB.postList(newList);
+    res.status(200).send(newList);
+});
+
+
 app.post('/items/:listId', async (req, res) => {
     let listId = req.params.listId;
     
@@ -36,6 +49,12 @@ app.post('/items/:listId', async (req, res) => {
     res.status(200).send(item);
 });
 
+app.delete('/items/:itemId', async (req, res) => {
+    let itemId = req.params.id;
+    const data = await MONGODB.deleteItem(itemId);
+    res.status(204).send(data);
+})
+
 http.listen(PORT, () => console.log(`Server started on ${PORT}`));
 
 
@@ -46,24 +65,3 @@ http.listen(PORT, () => console.log(`Server started on ${PORT}`));
 
 
 
-
-
-
-/* app.get('/items/:listId', async (req, res) => {
-    let listId = req.params.id;
-    console.log(listId);
-    
-    const data = await MONGODB.getLists(listId);
-    data ? res.status(200).send(listId) : res.status(400).end();
-});
- */
-
-
-
- /* 
-app.get('/items/:listId', async (req, res) => {
-    let listId = req.params.listId;
-    const data = await MONGODB.getItem(listId);
-    data ? res.status(200).send(listId) : res.status(400).end();
-
-}) */

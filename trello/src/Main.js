@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import RenderLists from './RenderLists'
-import PopUp from './PopUp'
 
 export default function Main() {
     const [lists, setLists] = useState([]);
     const [items, setItems] = useState([]);
-    const [showPopUp, setShowPopUp] = useState(false);
+    const [addList, setAddList] = useState(false);
+    const [inputValue, setInputValue] = useState("");
+
 
     useEffect(() => {
         getListsFromAxios();
@@ -38,9 +39,25 @@ export default function Main() {
             })
     }
 
-    const handleClick = (e) => {
-        console.log('Item clicked');
-        setShowPopUp(true);
+
+    const handleCreateNewList = () => {
+        postListAxios();        
+        setInputValue("");
+    }
+    
+    function postListAxios() {
+        let newList = {
+            title: inputValue,
+        }
+        axios
+            .post('lists/')
+            .then((res) => {
+                console.log(res.data);
+                setLists([...lists, newList])
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     function postAxios(item, listId) {                  
@@ -54,13 +71,32 @@ export default function Main() {
                 console.error(err);
             })
     }
+    
+    function deleteAxios(itemId) {
+        axios
+            .delete(`/items/${itemId}`)
+            .then((res) => {
+                console.log(res);
+                let newItems = items.filter((x) => {
+                    console.log(x);
+                    
+                    return x._id !== itemId;
+                });
+                setItems(newItems);
+                console.log(itemId);
 
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
     return (
         <>
-            <RenderLists lists={lists} items={items} postAxios={postAxios} handleClick={handleClick} />
-            {
-                showPopUp ? <PopUp /> : null
-            }
+            <RenderLists addList={addList} lists={lists} items={items} postAxios={postAxios} deleteAxios={deleteAxios} />
+            <div style={{ margin: 30}}>
+                <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
+                <button onClick={handleCreateNewList}>Add new list</button>
+            </div>
         </>
     )
 };
