@@ -20,13 +20,15 @@ app.get('/items', async (req, res) => {
 })
 
 app.post('/lists/', async (req, res) => {
-    let name = req.body.name;
+   
     if (!req.body.title === String) {
         return res.status(400).end();
     }
     let newList = {
         title: req.body.title,
     }
+    console.log(newList);
+    
 const data = await MONGODB.postList(newList);
     res.status(200).send(newList);
 });
@@ -49,8 +51,16 @@ app.post('/items/:listId', async (req, res) => {
     res.status(200).send(item);
 });
 
+app.delete('/lists/:listId', async (req, res) => {
+    let listId = req.params.listId;
+    console.log(listId);
+    
+    const data = await MONGODB.deleteList(listId);
+    res.status(204).send(data);
+})
+
 app.delete('/items/:itemId', async (req, res) => {
-    let itemId = req.params.id;
+    let itemId = req.params.itemId;
     const data = await MONGODB.deleteItem(itemId);
     res.status(204).send(data);
 })

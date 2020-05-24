@@ -4,7 +4,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddItems from './AddItems'
 import PopUp from './PopUp'
 
-export default function RenderItems({ items, postAxios, deleteAxios, listId, itemId, itemTitle }) {
+export default function RenderItems({ items, postItemAxios, deleteItemAxios, listId, itemId, itemTitle }) {
     const [showPopUp, setShowPopUp] = useState(false);
     const [title, setTitle] = useState(null);
 
@@ -35,7 +35,7 @@ export default function RenderItems({ items, postAxios, deleteAxios, listId, ite
             {mappedItems}
             <AddItems 
                 items={items} 
-                postAxios={postAxios} 
+                postItemAxios={postItemAxios} 
                 listId={listId} />
             {
                 showPopUp ? <PopUp 
@@ -43,7 +43,7 @@ export default function RenderItems({ items, postAxios, deleteAxios, listId, ite
                                 items={items} 
                                 itemId={itemId} 
                                 itemTitle={itemTitle} 
-                                deleteAxios={deleteAxios} /> : null
+                                deleteItemAxios={deleteItemAxios} /> : null
             }
         </>
     )

@@ -58,6 +58,16 @@ async function postItem(item) { // item kommer från frontend
     }
 }
 
+async function deleteList(listId) {
+    try {
+        const result = await db
+        .collection('lists')
+        .deleteOne({_id: ObjectId(listId)})
+    } catch {
+        return error;
+    }
+}
+
 async function deleteItem(itemId) {
     try {
         const result = await db
@@ -73,7 +83,7 @@ module.exports.getLists = getLists
 module.exports.getItems = getItems;
 module.exports.postItem = postItem;
 module.exports.postList = postList;
-//module.exports.deleteList = deleteList;
+module.exports.deleteList = deleteList;
 module.exports.deleteItem = deleteItem;
 
 

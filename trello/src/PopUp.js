@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import axios from 'axios';
 
 
-export default function Popup({ item, title, deleteAxios, itemId }) {
+export default function Popup({ item, title, deleteItemAxios, itemId }) {
     const [inputValue, setInputValue] = useState("");    
     
     const handleChange = (e) => {
@@ -15,7 +15,7 @@ export default function Popup({ item, title, deleteAxios, itemId }) {
         console.log('DELETE Clicked');
         console.log(itemId);
         
-        deleteAxios(itemId);
+        deleteItemAxios(itemId);
     }
 
     const handleSave = (e) => {

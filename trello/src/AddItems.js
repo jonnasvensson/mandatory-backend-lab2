@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 
-export default function AddItems({ postAxios, listId }) {
-    const [inputValue, setinputValue] = useState("");
+export default function AddItems({ postItemAxios, listId }) {
+    const [inputValue, setInputValue] = useState("");
 
     const handleChange = (e) => {
-        setinputValue(e.target.value)
+        setInputValue(e.target.value)
     }
     const handleSubmit = () => {
         let item = {
@@ -13,8 +13,8 @@ export default function AddItems({ postAxios, listId }) {
             description: "",
             listId: listId,
         }
-        postAxios(item, listId);
-        setinputValue("");
+        postItemAxios(item, listId);
+        setInputValue("");
     }
 
     return (

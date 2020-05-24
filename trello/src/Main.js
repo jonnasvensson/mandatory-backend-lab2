@@ -6,9 +6,7 @@ import RenderLists from './RenderLists'
 export default function Main() {
     const [lists, setLists] = useState([]);
     const [items, setItems] = useState([]);
-    const [addList, setAddList] = useState(false);
     const [inputValue, setInputValue] = useState("");
-
 
     useEffect(() => {
         getListsFromAxios();
@@ -39,10 +37,16 @@ export default function Main() {
             })
     }
 
-
-    const handleCreateNewList = () => {
-        postListAxios();        
+    const handleCreateNewList = (newList) => {
+        postListAxios(newList);        
         setInputValue("");
+        getItemsFromAxios();
+    }
+
+    const handleDeleteList = (listId) => {
+        console.log('Delete clicked');
+        axiosDeleteList(listId);
+        getListsFromAxios();
     }
     
     function postListAxios() {
@@ -50,7 +54,7 @@ export default function Main() {
             title: inputValue,
         }
         axios
-            .post('lists/')
+            .post('lists/', newList)
             .then((res) => {
                 console.log(res.data);
                 setLists([...lists, newList])
@@ -60,7 +64,7 @@ export default function Main() {
             })
     }
 
-    function postAxios(item, listId) {                  
+    function postItemAxios(item, listId) {                  
             axios
             .post('/items/' + listId, item)
             .then((res) => {
@@ -71,8 +75,20 @@ export default function Main() {
                 console.error(err);
             })
     }
+
+    function axiosDeleteList(listId) {
+        axios
+            .delete(`/lists/${listId}`)
+            .then((res) => {
+                console.log(res.data);
+                getListsFromAxios();
+            })
+            .catch (err => {
+                console.log(err);
+            })
+    }
     
-    function deleteAxios(itemId) {
+    function deleteItemAxios(itemId) {
         axios
             .delete(`/items/${itemId}`)
             .then((res) => {
@@ -90,11 +106,15 @@ export default function Main() {
                 console.error(err);
             })
     }
+
     return (
         <>
-            <RenderLists addList={addList} lists={lists} items={items} postAxios={postAxios} deleteAxios={deleteAxios} />
+            <RenderLists lists={lists} items={items} postItemAxios={postItemAxios} handleDeleteList={handleDeleteList} deleteItemAxios={deleteItemAxios} />
             <div style={{ margin: 30}}>
-                <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
+                <input 
+                    type="text" 
+                    value={inputValue} 
+                    onChange={(e) => setInputValue(e.target.value)}/>
                 <button onClick={handleCreateNewList}>Add new list</button>
             </div>
         </>
