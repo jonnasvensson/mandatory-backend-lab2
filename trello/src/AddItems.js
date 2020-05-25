@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 
 export default function AddItems({ postItemAxios, listId }) {
@@ -19,11 +20,14 @@ export default function AddItems({ postItemAxios, listId }) {
 
     return (
         <>
-            <input
-                type="text"
-                value={inputValue}
-                onChange={handleChange} />
-            <button onClick={handleSubmit} >Lägg till kort</button>
+            <div className="add_item">
+                <input
+                    type="text"
+                    className="input card"
+                    value={inputValue}
+                    onChange={handleChange} />
+                    <AddCircleIcon className="icon" onClick={handleSubmit} />
+            </div>    
         </>
     )
 }

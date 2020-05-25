@@ -1,37 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from "react-dom";
-import axios from 'axios';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
 
 
-export default function Popup({ item, title, deleteItemAxios, itemId }) {
+export default function Popup({ item, clickedItem, deleteItemAxios, axiosPatchItem, itemId }) {
     const [inputValue, setInputValue] = useState("");    
+    const [state, setState] = useState({
+        title: clickedItem.title, 
+        description: clickedItem.description, 
+    })
+    
+    console.log(itemId);
+    console.log('CLICKED ITEM -->', clickedItem);    
+    console.log('CLICKED ITEM ID -->', clickedItem._id);
     
     const handleChange = (e) => {
-        setInputValue(e.target.value);
-        console.log(inputValue);   
+        
+        const value = e.target.value;
+        setState({...state, 
+            [e.target.name]: value
+        })
     }
 
-    const handleDelete = (e, itemId) => {
-        console.log('DELETE Clicked');
-        console.log(itemId);
-        
+    const handleDelete = (itemId) => {
         deleteItemAxios(itemId);
     }
 
-    const handleSave = (e) => {
-        console.log('SAVE Clicked');
+    const handleSave = (itemId) => {
+        let upDatedItem = {
+            title: state.title,
+            description: state.description,
+        }
+        axiosPatchItem(itemId, upDatedItem);
+        console.log('ITEM ID', itemId);
     }
     
     return ReactDOM.createPortal ((
             <div className="popUp">
-                <h2>{title.title}</h2>                 
-                <textarea type="text" onChange={handleChange} value={inputValue} />
-                <button onClick={handleSave}>Save</button>
+                <input 
+                    className="input"
+                    type="text" 
+                    name="title"
+                    value={state.title} 
+                    onChange={handleChange}/>
+                <textarea 
+                    className="textfield"
+                    type="text" 
+                    name="description"
+                    onChange={handleChange} 
+                    value={state.description} />
+                    <SaveIcon className="icon" onClick={(e) => handleSave(clickedItem._id)}/>
                 <div>
-                    <p>Created: {title.date}</p>
                 </div>
                 <div>
-                    <button onClick={(e) => handleDelete(e, itemId)}>Delete</button>
+                    <DeleteIcon className="icon" onClick={(e) => handleDelete(clickedItem._id)} />
+                    <p>Created: {clickedItem.date}</p>
                 </div>
             </div>
         ),

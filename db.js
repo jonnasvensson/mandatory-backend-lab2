@@ -41,7 +41,8 @@ async function postList(newList) {
     try {
         const result = await db 
         .collection('lists')
-        .insertOne(newList)
+        .insertOne(newList);
+        return result;
     } catch {
         throw error;
     }
@@ -53,6 +54,17 @@ async function postItem(item) { // item kommer från frontend
         const result = await db
         .collection('items')
         .insertOne(item);
+    } catch {
+        throw error;
+    }
+}
+
+async function putItem(itemId, upDatedItem) {
+    try {
+        const result = await db
+        .collection('items')
+        .findOneAndUpdate({_id: ObjectId(itemId)}, { $set: upDatedItem }, { returnOriginal : false })
+        return result;
     } catch {
         throw error;
     }
@@ -83,6 +95,7 @@ module.exports.getLists = getLists
 module.exports.getItems = getItems;
 module.exports.postItem = postItem;
 module.exports.postList = postList;
+module.exports.putItem = putItem;
 module.exports.deleteList = deleteList;
 module.exports.deleteItem = deleteItem;
 

@@ -11,7 +11,6 @@ function App() {
   return (
     <>
       <div className="App">
-        <h2 className="title">Trello</h2>
         <Main />
       </div>
     </>

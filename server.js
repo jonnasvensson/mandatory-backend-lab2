@@ -27,7 +27,6 @@ app.post('/lists/', async (req, res) => {
     let newList = {
         title: req.body.title,
     }
-    console.log(newList);
     
 const data = await MONGODB.postList(newList);
     res.status(200).send(newList);
@@ -43,17 +42,34 @@ app.post('/items/:listId', async (req, res) => {
     }
     let item = {
         title: req.body.title,
-        description: "",
+        description: req.body.description,
         date: date,
         listId: listId
     }    
+    console.log(item);
+    
     const data = await MONGODB.postItem(item);
     res.status(200).send(item);
 });
 
+app.put('/items/:itemId', async (req, res) => {
+    let itemId = req.params.itemId;
+    console.log('REQ PARAMS', req.params.itemId);
+    
+    let upDatedItem = {
+        title: req.body.title,
+        description: req.body.description 
+    }
+    console.log('UPDATEDITEM', upDatedItem);
+
+    const data = await MONGODB.putItem(itemId, upDatedItem);
+console.log('DATA från put server', data.value);
+
+    res.status(204).send(data.value);
+})
+
 app.delete('/lists/:listId', async (req, res) => {
     let listId = req.params.listId;
-    console.log(listId);
     
     const data = await MONGODB.deleteList(listId);
     res.status(204).send(data);

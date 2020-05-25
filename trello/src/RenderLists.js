@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import RenderItems from './RenderItems'
@@ -10,24 +10,27 @@ export default function RenderLists({
         postItemAxios, 
         deleteItemAxios, 
         handleShowPopUp, 
-        handleDeleteList }) 
-    
+        handleDeleteList, 
+        axiosPatchItem,
+        }) 
     {
 
-    const mappedLists = lists.map((list) => 
-        <div    className="list" 
-                key={list._id}>Title: {list.title}
+    const mappedLists = lists.map((list) => {        
+        return <div    className="list" 
+                key={list._id}>{list.title}
             <RenderItems 
                 list={list} 
                 listId={list._id} 
                 items={items} 
                 postItemAxios={postItemAxios} 
                 deleteItemAxios={deleteItemAxios} 
-                handleShowPopUp={handleShowPopUp} />
+                handleShowPopUp={handleShowPopUp}
+                axiosPatchItem={axiosPatchItem} />
             <div    className="container_deleteIcon">
-                        <DeleteIcon onClick={() =>handleDeleteList(list._id)} />
+                <DeleteIcon className="icon" onClick={() =>handleDeleteList(list._id)} />
             </div>
         </div>
+        }
     );
     
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import RenderLists from './RenderLists'
 
@@ -29,7 +30,6 @@ export default function Main() {
         axios
             .get('/items')
             .then((res) => {
-                console.log('ITEMS-->', res.data);
                 setItems(res.data);
             })
             .catch(err => {
@@ -57,7 +57,7 @@ export default function Main() {
             .post('lists/', newList)
             .then((res) => {
                 console.log(res.data);
-                setLists([...lists, newList])
+                setLists([...lists, res.data])
             })
             .catch(err => {
                 console.log(err);
@@ -76,12 +76,26 @@ export default function Main() {
             })
     }
 
+    function axiosPatchItem(itemId, upDatedItem) {
+        console.log('itemId', itemId);
+        axios
+            .put('/items/' + itemId, upDatedItem)
+            .then((res) => {
+                console.log('RESPONS', res);
+
+                // hämta uppdaterade item!
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
     function axiosDeleteList(listId) {
         axios
             .delete(`/lists/${listId}`)
             .then((res) => {
                 console.log(res.data);
-                getListsFromAxios();
+                setLists(lists.filter(x => x._id !== listId));
             })
             .catch (err => {
                 console.log(err);
@@ -89,34 +103,42 @@ export default function Main() {
     }
     
     function deleteItemAxios(itemId) {
+        console.log('ITEM I AXIOS', itemId);
+
         axios
             .delete(`/items/${itemId}`)
             .then((res) => {
-                console.log(res);
-                let newItems = items.filter((x) => {
-                    console.log(x);
-                    
-                    return x._id !== itemId;
-                });
-                setItems(newItems);
+                console.log('RESPONS FROM RES', res);
+                setItems(items.filter((x) => {                     
+                    return x._id !== itemId;  
+                })
+                );
                 console.log(itemId);
-
             })
             .catch(err => {
                 console.error(err);
             })
     }
 
+    // Vid flytt
+    // 1. Post till listan där itemet skall flyttas till
+    // 2. delete på item som skall flyttas från listId
+    // 
+
     return (
         <>
-            <RenderLists lists={lists} items={items} postItemAxios={postItemAxios} handleDeleteList={handleDeleteList} deleteItemAxios={deleteItemAxios} />
-            <div style={{ margin: 30}}>
+            <header>
+                <div className="container_top">
                 <input 
+                    className="input"
                     type="text" 
                     value={inputValue} 
                     onChange={(e) => setInputValue(e.target.value)}/>
-                <button onClick={handleCreateNewList}>Add new list</button>
-            </div>
+                    <AddCircleIcon className="icon top" onClick={handleCreateNewList}/> 
+            </div>    
+
+            </header>
+            <RenderLists lists={lists} items={items} axiosPatchItem={axiosPatchItem} postItemAxios={postItemAxios} handleDeleteList={handleDeleteList} deleteItemAxios={deleteItemAxios} />
         </>
     )
 };

@@ -3,19 +3,65 @@
     min-height: 100vh;
 }
 
+.add_item {
+    display: flex;
+    position: absolute;
+    bottom: 25px;
+    left: 10px;
+}
+
+.button {
+    border-radius: 4px;
+}
+
 .container_lists {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
+.container_top {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+}
+
 .list {
     width: 200px;
     min-height: 300px;
     border: 2px solid white;
-    border-radius: 8px;
+    border-radius: 4px;
     color: white;
     position: relative;
+    padding: 4px;
+    margin: 4px;
+}
+
+.input {
+    border-radius: 4px;
+    border: 0px;
+    background-color: lightgrey;
+}
+
+.top {
+    color: white;
+}
+
+.input:hover {
+    background-color: white;
+}
+
+.input:focus {
+    background-color: white;
+}
+
+.card {
+    width: 50%;
+}
+
+.icon {
+    cursor: pointer;
 }
 
 .item {
@@ -28,7 +74,7 @@
 }
 
 .item:hover {
-    background-color: lightgray;
+    background-color: #112632;
     cursor: pointer;
 }
 
@@ -38,18 +84,36 @@ p {
 
 .popUp {
     background-color: white;
-    height: 60vh;
+    height: 70vh;
     width: 400px;
-    border: 2px solid black;
+    border: 2px solid #112632;
     position: absolute;
     top: 50%;
     margin-top: -200px;
     left: 50%;
     margin-left: -200px;
+    padding: 30px;
+    border-radius: 4px;
 }
 
 .container_deleteIcon {
     position: absolute;
     bottom: 5px;
     right: 5px;
+}
+
+header {
+    display: flex;
+    height: 150px;
+    position: relative;
+    border-bottom-right-radius: 250px 100px;
+    background-color: #1f3947;
+    margin-bottom: 30px;
+}
+
+.textfield {
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 0px;
+    background-color: lightgrey;
 }

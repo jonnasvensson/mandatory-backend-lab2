@@ -4,13 +4,16 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddItems from './AddItems'
 import PopUp from './PopUp'
 
-export default function RenderItems({ items, postItemAxios, deleteItemAxios, listId, itemId, itemTitle }) {
-    const [showPopUp, setShowPopUp] = useState(false);
-    const [title, setTitle] = useState(null);
-
-    const handleShowPopUp = (title) => {
-        setShowPopUp(true);
-        setTitle(title);
+export default function RenderItems({ items, axiosPatchItem, postItemAxios, deleteItemAxios, listId, itemId, itemTitle }) {
+    const [showPopUp, setShowPopUp] = useState(null);
+    const [clickedItem, setclickedItem] = useState(null);
+    
+    const handleShowPopUp = (item, itemId) => {
+        console.log(itemId);
+        console.log('ITEM', item);
+ 
+        setShowPopUp(itemId);
+        setclickedItem(item);
     }
     
     const mappedItems =
@@ -19,9 +22,9 @@ export default function RenderItems({ items, postItemAxios, deleteItemAxios, lis
             itemId = item._id;
             if (listId === item.listId) {
                 return (
-                        <div className="item" key={item._id}  onClick={() => handleShowPopUp(item, itemId._id)} >
+                        <div className="item" key={item._id} onClick={() => handleShowPopUp(item, itemId)} >
                             <p>{item.title}</p>
-                            <EditIcon />
+                            <EditIcon className="icon"/>
                         </div>
                 )
             } else {
@@ -39,10 +42,10 @@ export default function RenderItems({ items, postItemAxios, deleteItemAxios, lis
                 listId={listId} />
             {
                 showPopUp ? <PopUp 
-                                title={title} 
-                                items={items} 
+                                clickedItem={clickedItem}
                                 itemId={itemId} 
                                 itemTitle={itemTitle} 
+                                axiosPatchItem={axiosPatchItem}
                                 deleteItemAxios={deleteItemAxios} /> : null
             }
         </>
