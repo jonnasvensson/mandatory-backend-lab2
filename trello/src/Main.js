@@ -76,7 +76,7 @@ export default function Main() {
             })
     }
 
-    function axiosPatchItem(itemId, upDatedItem) {
+    function axiosPutItem(itemId, upDatedItem) {
         console.log('itemId', itemId);
         axios
             .put('/items/' + itemId, upDatedItem)
@@ -89,6 +89,20 @@ export default function Main() {
                 console.error(err);
             })
     }
+
+    //move item
+    function axiosMoveItem(selectedList, clickedItem) {       
+        console.log(clickedItem);
+        axios
+        .put('/items/' + selectedList, clickedItem)
+        .then((res) => {
+            console.log(res);
+            setLists([...clickedItem, res.data])
+        })
+        .catch(err => {
+            console.error(err);
+        })
+}
 
     function axiosDeleteList(listId) {
         axios
@@ -125,20 +139,30 @@ export default function Main() {
     // 2. delete på item som skall flyttas från listId
     // 
 
+    // Plocka bort div och input och add icon läggs direkt i header?
+
     return (
         <>
-            <header>
+            <header>  
                 <div className="container_top">
-                <input 
-                    className="input"
-                    type="text" 
-                    value={inputValue} 
-                    onChange={(e) => setInputValue(e.target.value)}/>
-                    <AddCircleIcon className="icon top" onClick={handleCreateNewList}/> 
-            </div>    
-
+                    <input 
+                        className="input"
+                        type="text" 
+                        value={inputValue} 
+                        onChange={(e) => setInputValue(e.target.value)}/>
+                    <AddCircleIcon 
+                        className="icon top" 
+                        onClick={handleCreateNewList}/> 
+                </div>    
             </header>
-            <RenderLists lists={lists} items={items} axiosPatchItem={axiosPatchItem} postItemAxios={postItemAxios} handleDeleteList={handleDeleteList} deleteItemAxios={deleteItemAxios} />
+            <RenderLists 
+                lists={lists} 
+                items={items} 
+                axiosPutItem={axiosPutItem} 
+                axiosMoveItem={axiosMoveItem} 
+                postItemAxios={postItemAxios} 
+                handleDeleteList={handleDeleteList} 
+                deleteItemAxios={deleteItemAxios} />
         </>
     )
 };

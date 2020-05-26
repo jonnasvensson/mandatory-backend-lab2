@@ -10,8 +10,23 @@
     left: 10px;
 }
 
-.button {
+.bottom_container {
+    width: 330px;
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    justify-content: space-between;
+}
+
+button {
     border-radius: 4px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+button:hover {
+    background-color: white;
 }
 
 .container_lists {
@@ -25,6 +40,12 @@
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);
+}
+
+.container_textfiled {
+    display: flex;
+    position: relative;
+    margin-top: 10px;
 }
 
 .list {
@@ -54,6 +75,11 @@
 
 .input:focus {
     background-color: white;
+}
+
+button {
+    border-radius: 4px;
+    border: 1px solid #112632;
 }
 
 .card {
@@ -96,6 +122,12 @@ p {
     border-radius: 4px;
 }
 
+select {
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
 .container_deleteIcon {
     position: absolute;
     bottom: 5px;
@@ -112,8 +144,11 @@ header {
 }
 
 .textfield {
-    margin-top: 10px;
     border-radius: 4px;
     border: 0px;
     background-color: lightgrey;
+}
+
+.textfield:hover {
+    background-color: white;
 }

@@ -63,9 +63,20 @@ app.put('/items/:itemId', async (req, res) => {
     console.log('UPDATEDITEM', upDatedItem);
 
     const data = await MONGODB.putItem(itemId, upDatedItem);
-console.log('DATA från put server', data.value);
 
     res.status(204).send(data.value);
+})
+
+// moveItem
+app.put('/items/:listId', async (req, res) =>{
+    let listId = req.params.listId;
+
+    let item = req.body.item;
+    console.log(item);
+    
+
+    const data = await MONGODB.moveItem(item, listId); // döpa om till updatedListId?
+    res.status(204).send(data);
 })
 
 app.delete('/lists/:listId', async (req, res) => {

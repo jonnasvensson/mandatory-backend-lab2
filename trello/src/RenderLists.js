@@ -11,21 +11,25 @@ export default function RenderLists({
         deleteItemAxios, 
         handleShowPopUp, 
         handleDeleteList, 
-        axiosPatchItem,
+        axiosPutItem,
+        axiosMoveItem,
         }) 
     {
 
     const mappedLists = lists.map((list) => {        
         return <div    className="list" 
-                key={list._id}>{list.title}
+                        key={list._id}>
+                <h4>{list.title}</h4>
             <RenderItems 
                 list={list} 
+                lists={lists}
                 listId={list._id} 
                 items={items} 
                 postItemAxios={postItemAxios} 
                 deleteItemAxios={deleteItemAxios} 
                 handleShowPopUp={handleShowPopUp}
-                axiosPatchItem={axiosPatchItem} />
+                axiosPutItem={axiosPutItem}
+                axiosMoveItem={axiosMoveItem} />
             <div    className="container_deleteIcon">
                 <DeleteIcon className="icon" onClick={() =>handleDeleteList(list._id)} />
             </div>

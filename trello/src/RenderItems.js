@@ -4,13 +4,25 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddItems from './AddItems'
 import PopUp from './PopUp'
 
-export default function RenderItems({ items, axiosPatchItem, postItemAxios, deleteItemAxios, listId, itemId, itemTitle }) {
+export default function RenderItems({ 
+    items, 
+    axiosPutItem, 
+    postItemAxios, 
+    deleteItemAxios,
+    axiosMoveItem,
+    listId, 
+    itemId, 
+    itemTitle, 
+    list, 
+    lists }) {
     const [showPopUp, setShowPopUp] = useState(null);
     const [clickedItem, setclickedItem] = useState(null);
     
-    const handleShowPopUp = (item, itemId) => {
-        console.log(itemId);
+    const handleShowPopUp = (item, itemId, list) => {
+        //console.log(itemId);
         console.log('ITEM', item);
+        //console.log('LIST I HANDLESHOWPOPUP', list);
+        
  
         setShowPopUp(itemId);
         setclickedItem(item);
@@ -43,10 +55,13 @@ export default function RenderItems({ items, axiosPatchItem, postItemAxios, dele
             {
                 showPopUp ? <PopUp 
                                 clickedItem={clickedItem}
+                                list={list}
+                                lists={lists}
                                 itemId={itemId} 
                                 itemTitle={itemTitle} 
-                                axiosPatchItem={axiosPatchItem}
-                                deleteItemAxios={deleteItemAxios} /> : null
+                                axiosPutItem={axiosPutItem}
+                                deleteItemAxios={deleteItemAxios}
+                                axiosMoveItem={axiosMoveItem} /> : null
             }
         </>
     )

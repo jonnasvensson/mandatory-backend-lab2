@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
 import ReactDOM from "react-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
-import SaveIcon from '@material-ui/icons/Save';
 
 
-export default function Popup({ item, clickedItem, deleteItemAxios, axiosPatchItem, itemId }) {
+export default function Popup({ 
+    item, 
+    clickedItem, 
+    deleteItemAxios, 
+    axiosPutItem,
+    axiosMoveItem, 
+    itemId, 
+    list, 
+    lists }) 
+    
+    {
     const [inputValue, setInputValue] = useState("");    
     const [state, setState] = useState({
         title: clickedItem.title, 
         description: clickedItem.description, 
     })
+    const [selectedList, setSelectedList] = useState("");    
     
-    console.log(itemId);
+    console.log('ITEM', item);
+    
+    console.log('LISTS -->', lists);
+    console.log('ITEM ID', itemId);
     console.log('CLICKED ITEM -->', clickedItem);    
-    console.log('CLICKED ITEM ID -->', clickedItem._id);
+    console.log('CLICKED ITEM ID -->', clickedItem._id);    
     
     const handleChange = (e) => {
         
@@ -27,14 +40,21 @@ export default function Popup({ item, clickedItem, deleteItemAxios, axiosPatchIt
         deleteItemAxios(itemId);
     }
 
+    const handleMove = (selectedList, clickedItem) => {
+        console.log(selectedList);
+        axiosMoveItem(selectedList, clickedItem);
+    }
+    console.log('SELECTLIST --> ID ', selectedList);
+
     const handleSave = (itemId) => {
         let upDatedItem = {
             title: state.title,
             description: state.description,
         }
-        axiosPatchItem(itemId, upDatedItem);
+        axiosPutItem(itemId, upDatedItem);
         console.log('ITEM ID', itemId);
     }
+
     
     return ReactDOM.createPortal ((
             <div className="popUp">
@@ -44,16 +64,25 @@ export default function Popup({ item, clickedItem, deleteItemAxios, axiosPatchIt
                     name="title"
                     value={state.title} 
                     onChange={handleChange}/>
-                <textarea 
-                    className="textfield"
-                    type="text" 
-                    name="description"
-                    onChange={handleChange} 
-                    value={state.description} />
-                    <SaveIcon className="icon" onClick={(e) => handleSave(clickedItem._id)}/>
-                <div>
+                <div className="container_textfiled">
+                    <textarea 
+                        className="textfield"
+                        type="text" 
+                        name="description"
+                        onChange={handleChange} 
+                        value={state.description} />
+                    <button onClick={(e) => handleSave(clickedItem._id)}>Update</button>
                 </div>
-                <div>
+                <div className="container_textfiled">
+                    <select onChange={(e) => setSelectedList(e.target.value)} name="" id="">
+                    <option value="none"> </option>
+                        { 
+                            lists.map((list) => <option key={list._id} value={list._id} >{list.title}</option>)
+                        }
+                    </select>
+                    <button onClick={() => handleMove(selectedList, itemId)}>move item</button>
+                </div>
+                <div className="bottom_container">
                     <DeleteIcon className="icon" onClick={(e) => handleDelete(clickedItem._id)} />
                     <p>Created: {clickedItem.date}</p>
                 </div>
