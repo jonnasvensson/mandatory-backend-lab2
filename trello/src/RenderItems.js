@@ -45,7 +45,7 @@ export default function RenderItems({
             itemId = item._id;
             if (listId === item.listId) {
                 return (
-                        <div className="item" key={item._id} onClick={() => handleShowPopUp(item, itemId)} >
+                        <div className="item" key={item._id} onClick={() => handleShowPopUp(item)} >
                             <p>{item.title}</p>
                             <EditIcon className="icon"/>
                         </div>

@@ -48,7 +48,7 @@ async function postList(newList) {
     }
 }
 
-async function postItem(item) { // item kommer från frontend     
+async function postItem(item) {    
     item.listId = ObjectId(item.listId)                                                                                           
     try {
         const result = await db
@@ -63,23 +63,12 @@ async function putItem(itemId, upDatedItem) {
     try {
         const result = await db
         .collection('items')
-        .findOneAndUpdate({_id: ObjectId(itemId)}, { $set: upDatedItem }, { returnOriginal : false })
-        return result;
-    } catch {
-        throw error;
+        .findOneAndUpdate({_id: ObjectId(itemId)}, { $set: upDatedItem })
+    } catch (error) {
+        console.log(error);      
     }
 }
 
-/* async function moveItem(item, listId) {
-    try {
-        const result = await db
-        .collection('items')
-        .findOneAndUpdate({_id: ObjectId(listId)}, { $set: item }, { returnOriginal : false })
-        return result;
-    } catch {
-        throw error;
-    }
-} */
 
 async function deleteList(listId) {
     try {
@@ -107,7 +96,6 @@ module.exports.getItems = getItems;
 module.exports.postItem = postItem;
 module.exports.postList = postList;
 module.exports.putItem = putItem;
-//module.exports.moveItem = moveItem;
 module.exports.deleteList = deleteList;
 module.exports.deleteItem = deleteItem;
 

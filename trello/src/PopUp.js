@@ -5,12 +5,10 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 
 export default function Popup({ 
-    item, 
     clickedItem, 
     axiosLists,
     deleteItemAxios, 
     axiosPutItem,
-    axiosMoveItem, 
     itemId, 
     list, 
     lists, 
@@ -19,18 +17,14 @@ export default function Popup({
     }) 
     
     {
-    //const [inputValue, setInputValue] = useState("");    
     const [state, setState] = useState({
+        id: clickedItem._id,
         title: clickedItem.title, 
         description: clickedItem.description, 
         listId: clickedItem.listId,
     })
     const [selectedList, setSelectedList] = useState("");    
         
-    console.log('LISTS', lists);
-    console.log('ITEM ID', itemId);
-    console.log('CLICKED ITEM', clickedItem);        
-    
     const handleChange = (e) => {
         const value = e.target.value;
         setState({...state, 
@@ -44,30 +38,22 @@ export default function Popup({
         axiosLists();
     }
     
-    const handleMove = (selectedList, clickedItem, itemId) => {
-        //console.log(selectedList);
+    const handleMove = (selectedList, itemId) => {
         let upDatedItem = {
             title: state.title,
             description: state.description,
-            listId: selectedList,   // skicka in listid!
+            listId: selectedList,  
         }
-
-        axiosPutItem(itemId, upDatedItem);
-        
+        axiosPutItem(clickedItem._id, upDatedItem);
     }
-    console.log('SELECTLIST --> ID ', selectedList);
-
 
     const handleSave = (itemId) => {
         let upDatedItem = {
             title: state.title,
             description: state.description,
-            listId: state.listId,   // skicka in listid!
-        }
-        console.log(upDatedItem.listId);
-        
+            listId: state.listId,  
+        }        
         axiosPutItem(itemId, upDatedItem);
-        console.log('ITEM ID', itemId);
         // kalla på axios getlists?
     }
 
@@ -104,7 +90,7 @@ export default function Popup({
                             lists.map((list) => <option key={list._id} value={list._id} >{list.title}</option>)
                         }
                     </select>
-                    <button onClick={(e) => handleMove(selectedList)}>move item</button>
+                    <button onClick={(e) => handleMove(selectedList, itemId)}>move item</button>
                 </div>
                 <div className="bottom_container">
                     <DeleteIcon className="icon" onClick={(e) => handleDelete(clickedItem._id)} />
