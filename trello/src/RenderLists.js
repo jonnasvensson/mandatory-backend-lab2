@@ -7,6 +7,7 @@ import RenderItems from './RenderItems'
 export default function RenderLists({ 
         lists, 
         items, 
+        axiosLists,
         postItemAxios, 
         deleteItemAxios, 
         handleShowPopUp, 
@@ -25,6 +26,7 @@ export default function RenderLists({
                 lists={lists}
                 listId={list._id} 
                 items={items} 
+                axiosLists={axiosLists}
                 postItemAxios={postItemAxios} 
                 deleteItemAxios={deleteItemAxios} 
                 handleShowPopUp={handleShowPopUp}

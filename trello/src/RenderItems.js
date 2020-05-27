@@ -6,6 +6,7 @@ import PopUp from './PopUp'
 
 export default function RenderItems({ 
     items, 
+    axiosLists,
     axiosPutItem, 
     postItemAxios, 
     deleteItemAxios,
@@ -15,6 +16,8 @@ export default function RenderItems({
     itemTitle, 
     list, 
     lists }) {
+    
+    const [modalActive, setModalActive] = useState(false)
     const [showPopUp, setShowPopUp] = useState(null);
     const [clickedItem, setclickedItem] = useState(null);
     
@@ -23,11 +26,19 @@ export default function RenderItems({
         console.log('ITEM', item);
         //console.log('LIST I HANDLESHOWPOPUP', list);
         
- 
-        setShowPopUp(itemId);
-        setclickedItem(item);
+        setModalActive(true);
+        //setShowPopUp(itemId);
+        setclickedItem(item, itemId);   //skicka med itemId här? för att kunna plocka bort setShowpopUp?
+    }
+
+    const deactivateModal = () => {
+        setModalActive(false);
     }
     
+    const handleExit = () => {
+        deactivateModal();
+    }
+
     const mappedItems =
         items &&
         items.map((item) => {
@@ -52,17 +63,20 @@ export default function RenderItems({
                 items={items} 
                 postItemAxios={postItemAxios} 
                 listId={listId} />
-            {
-                showPopUp ? <PopUp 
+                {
+                modalActive ? <PopUp 
+                                deactivateModal={deactivateModal}
+                                handleExit={handleExit}
                                 clickedItem={clickedItem}
                                 list={list}
                                 lists={lists}
                                 itemId={itemId} 
                                 itemTitle={itemTitle} 
+                                axiosLists={axiosLists}
                                 axiosPutItem={axiosPutItem}
                                 deleteItemAxios={deleteItemAxios}
                                 axiosMoveItem={axiosMoveItem} /> : null
-            }
+                }
         </>
     )
 }

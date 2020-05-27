@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import ReactDOM from "react-dom";
+import AriaModal from 'react-aria-modal';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 
 export default function Popup({ 
     item, 
     clickedItem, 
+    axiosLists,
     deleteItemAxios, 
     axiosPutItem,
     axiosMoveItem, 
     itemId, 
     list, 
-    lists }) 
+    lists, 
+    deactivateModal,
+    handleExit,
+    }) 
     
     {
     const [inputValue, setInputValue] = useState("");    
@@ -38,6 +43,8 @@ export default function Popup({
 
     const handleDelete = (itemId) => {
         deleteItemAxios(itemId);
+        deactivateModal();
+        axiosLists();
     }
 
     const handleMove = (selectedList, clickedItem) => {
@@ -53,11 +60,20 @@ export default function Popup({
         }
         axiosPutItem(itemId, upDatedItem);
         console.log('ITEM ID', itemId);
+        // kalla på axios getlists?
     }
 
     
-    return ReactDOM.createPortal ((
+    return (
+            <AriaModal
+                titleText="demo one"
+                onExit={deactivateModal}
+                initialFocus="#demo-one-deactivate"
+                underlayStyle={{ paddingTop: '2em' }}
+                className="modal"
+            >
             <div className="popUp">
+                <CancelIcon className="icon" onClick={handleExit} />
                 <input 
                     className="input"
                     type="text" 
@@ -87,6 +103,6 @@ export default function Popup({
                     <p>Created: {clickedItem.date}</p>
                 </div>
             </div>
-        ),
-    document.body);
+            </AriaModal>   
+    )
 }

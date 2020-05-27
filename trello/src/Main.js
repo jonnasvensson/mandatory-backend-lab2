@@ -10,11 +10,11 @@ export default function Main() {
     const [inputValue, setInputValue] = useState("");
 
     useEffect(() => {
-        getListsFromAxios();
+        axiosLists();
         getItemsFromAxios();
     }, []);
 
-    function getListsFromAxios() {
+    function axiosLists() {
         axios
             .get('/lists')
             .then((res) => {
@@ -46,7 +46,7 @@ export default function Main() {
     const handleDeleteList = (listId) => {
         console.log('Delete clicked');
         axiosDeleteList(listId);
-        getListsFromAxios();
+        axiosLists();
     }
     
     function postListAxios() {
@@ -82,7 +82,7 @@ export default function Main() {
             .put('/items/' + itemId, upDatedItem)
             .then((res) => {
                 console.log('RESPONS', res);
-
+                getItemsFromAxios();
                 // hämta uppdaterade item!
             })
             .catch(err => {
@@ -158,6 +158,7 @@ export default function Main() {
             <RenderLists 
                 lists={lists} 
                 items={items} 
+                axiosLists={axiosLists}
                 axiosPutItem={axiosPutItem} 
                 axiosMoveItem={axiosMoveItem} 
                 postItemAxios={postItemAxios} 
