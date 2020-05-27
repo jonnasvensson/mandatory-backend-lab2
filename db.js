@@ -70,16 +70,16 @@ async function putItem(itemId, upDatedItem) {
     }
 }
 
-async function moveItem(item, listId) {
+/* async function moveItem(item, listId) {
     try {
         const result = await db
-        .collection('lists')
+        .collection('items')
         .findOneAndUpdate({_id: ObjectId(listId)}, { $set: item }, { returnOriginal : false })
         return result;
     } catch {
         throw error;
     }
-}
+} */
 
 async function deleteList(listId) {
     try {
@@ -107,7 +107,7 @@ module.exports.getItems = getItems;
 module.exports.postItem = postItem;
 module.exports.postList = postList;
 module.exports.putItem = putItem;
-module.exports.moveItem = moveItem;
+//module.exports.moveItem = moveItem;
 module.exports.deleteList = deleteList;
 module.exports.deleteItem = deleteItem;
 

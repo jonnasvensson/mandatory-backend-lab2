@@ -55,10 +55,12 @@ app.post('/items/:listId', async (req, res) => {
 app.put('/items/:itemId', async (req, res) => {
     let itemId = req.params.itemId;
     console.log('REQ PARAMS', req.params.itemId);
+    console.log('LIST ID', req.body.listId);
     
     let upDatedItem = {
         title: req.body.title,
-        description: req.body.description 
+        description: req.body.description,
+        listId: req.body.listId, 
     }
     console.log('UPDATEDITEM', upDatedItem);
 
@@ -67,7 +69,7 @@ app.put('/items/:itemId', async (req, res) => {
     res.status(204).send(data.value);
 })
 
-// moveItem
+/* // moveItem
 app.put('/items/:listId', async (req, res) =>{
     let listId = req.params.listId;
 
@@ -78,7 +80,7 @@ app.put('/items/:listId', async (req, res) =>{
     const data = await MONGODB.moveItem(item, listId); // döpa om till updatedListId?
     res.status(204).send(data);
 })
-
+ */
 app.delete('/lists/:listId', async (req, res) => {
     let listId = req.params.listId;
     

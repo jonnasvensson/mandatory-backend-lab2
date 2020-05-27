@@ -18,7 +18,7 @@ export default function RenderItems({
     lists }) {
     
     const [modalActive, setModalActive] = useState(false)
-    const [showPopUp, setShowPopUp] = useState(null);
+//    const [showPopUp, setShowPopUp] = useState(null);
     const [clickedItem, setclickedItem] = useState(null);
     
     const handleShowPopUp = (item, itemId, list) => {

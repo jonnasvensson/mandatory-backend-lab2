@@ -19,22 +19,19 @@ export default function Popup({
     }) 
     
     {
-    const [inputValue, setInputValue] = useState("");    
+    //const [inputValue, setInputValue] = useState("");    
     const [state, setState] = useState({
         title: clickedItem.title, 
         description: clickedItem.description, 
+        listId: clickedItem.listId,
     })
     const [selectedList, setSelectedList] = useState("");    
-    
-    console.log('ITEM', item);
-    
-    console.log('LISTS -->', lists);
+        
+    console.log('LISTS', lists);
     console.log('ITEM ID', itemId);
-    console.log('CLICKED ITEM -->', clickedItem);    
-    console.log('CLICKED ITEM ID -->', clickedItem._id);    
+    console.log('CLICKED ITEM', clickedItem);        
     
     const handleChange = (e) => {
-        
         const value = e.target.value;
         setState({...state, 
             [e.target.name]: value
@@ -46,18 +43,29 @@ export default function Popup({
         deactivateModal();
         axiosLists();
     }
+    
+    const handleMove = (selectedList, clickedItem, itemId) => {
+        //console.log(selectedList);
+        let upDatedItem = {
+            title: state.title,
+            description: state.description,
+            listId: selectedList,   // skicka in listid!
+        }
 
-    const handleMove = (selectedList, clickedItem) => {
-        console.log(selectedList);
-        axiosMoveItem(selectedList, clickedItem);
+        axiosPutItem(itemId, upDatedItem);
+        
     }
     console.log('SELECTLIST --> ID ', selectedList);
+
 
     const handleSave = (itemId) => {
         let upDatedItem = {
             title: state.title,
             description: state.description,
+            listId: state.listId,   // skicka in listid!
         }
+        console.log(upDatedItem.listId);
+        
         axiosPutItem(itemId, upDatedItem);
         console.log('ITEM ID', itemId);
         // kalla på axios getlists?
@@ -87,7 +95,7 @@ export default function Popup({
                         name="description"
                         onChange={handleChange} 
                         value={state.description} />
-                    <button onClick={(e) => handleSave(clickedItem._id)}>Update</button>
+                    <button onClick={(e) => handleSave(clickedItem._id)}>update</button>
                 </div>
                 <div className="container_textfiled">
                     <select onChange={(e) => setSelectedList(e.target.value)} name="" id="">
@@ -96,7 +104,7 @@ export default function Popup({
                             lists.map((list) => <option key={list._id} value={list._id} >{list.title}</option>)
                         }
                     </select>
-                    <button onClick={() => handleMove(selectedList, itemId)}>move item</button>
+                    <button onClick={(e) => handleMove(selectedList)}>move item</button>
                 </div>
                 <div className="bottom_container">
                     <DeleteIcon className="icon" onClick={(e) => handleDelete(clickedItem._id)} />

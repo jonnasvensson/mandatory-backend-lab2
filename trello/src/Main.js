@@ -76,13 +76,19 @@ export default function Main() {
             })
     }
 
-    function axiosPutItem(itemId, upDatedItem) {
+    function axiosPutItem(itemId, upDatedItem, clickedItem) {
         console.log('itemId', itemId);
+        console.log('CLICKED ITEM I AXIOS', clickedItem);
+        console.log('UPDATED ITEM I AXIOS', upDatedItem);
+
+        
         axios
             .put('/items/' + itemId, upDatedItem)
             .then((res) => {
                 console.log('RESPONS', res);
+                axiosLists();
                 getItemsFromAxios();
+
                 // hämta uppdaterade item!
             })
             .catch(err => {
@@ -90,11 +96,13 @@ export default function Main() {
             })
     }
 
-    //move item
+/*     //move item
     function axiosMoveItem(selectedList, clickedItem) {       
-        console.log(clickedItem);
+        console.log('CLICKED ITEM I MAIN',clickedItem);
+        console.log('SELECTED LIST I MAIN',selectedList);
+
         axios
-        .put('/items/' + selectedList, clickedItem)
+        .put('/lists/' + selectedList, clickedItem) //en if sats som kollar om nuvarande och selected finns?
         .then((res) => {
             console.log(res);
             setLists([...clickedItem, res.data])
@@ -103,7 +111,7 @@ export default function Main() {
             console.error(err);
         })
 }
-
+ */
     function axiosDeleteList(listId) {
         axios
             .delete(`/lists/${listId}`)
@@ -118,7 +126,6 @@ export default function Main() {
     
     function deleteItemAxios(itemId) {
         console.log('ITEM I AXIOS', itemId);
-
         axios
             .delete(`/items/${itemId}`)
             .then((res) => {
@@ -160,7 +167,7 @@ export default function Main() {
                 items={items} 
                 axiosLists={axiosLists}
                 axiosPutItem={axiosPutItem} 
-                axiosMoveItem={axiosMoveItem} 
+                //axiosMoveItem={axiosMoveItem} 
                 postItemAxios={postItemAxios} 
                 handleDeleteList={handleDeleteList} 
                 deleteItemAxios={deleteItemAxios} />
