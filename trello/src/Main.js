@@ -18,7 +18,6 @@ export default function Main() {
         axios
             .get('/lists')
             .then((res) => {
-                console.log(res.data);
                 setLists(res.data);
             })
             .catch(err => {
@@ -44,7 +43,6 @@ export default function Main() {
     }
 
     const handleDeleteList = (listId) => {
-        console.log('Delete clicked');
         axiosDeleteList(listId);
         axiosLists();
     }
@@ -53,6 +51,11 @@ export default function Main() {
         let newList = {
             title: inputValue,
         }
+        if (inputValue.trim().length === 0) {
+            setInputValue("");
+            return;
+        }
+
         axios
             .post('lists/', newList)
             .then((res) => {
@@ -76,47 +79,23 @@ export default function Main() {
             })
     }
 
-    function axiosPutItem(itemId, upDatedItem, clickedItem) {
-        console.log('itemId', itemId);
-        console.log('CLICKED ITEM I AXIOS', clickedItem);
-        console.log('UPDATED ITEM I AXIOS', upDatedItem);
-
-        
+    function axiosPutItem(itemId, upDatedItem) {
         axios
             .put('/items/' + itemId, upDatedItem)
             .then((res) => {
                 console.log('RESPONS', res);
                 axiosLists();
                 getItemsFromAxios();
-
-                // hämta uppdaterade item!
             })
             .catch(err => {
                 console.error(err);
             })
     }
 
-/*     //move item
-    function axiosMoveItem(selectedList, clickedItem) {       
-        console.log('CLICKED ITEM I MAIN',clickedItem);
-        console.log('SELECTED LIST I MAIN',selectedList);
-
-        axios
-        .put('/lists/' + selectedList, clickedItem) //en if sats som kollar om nuvarande och selected finns?
-        .then((res) => {
-            console.log(res);
-            setLists([...clickedItem, res.data])
-        })
-        .catch(err => {
-            console.error(err);
-        })
-}
- */
     function axiosDeleteList(listId) {
         axios
             .delete(`/lists/${listId}`)
             .then((res) => {
-                console.log(res.data);
                 setLists(lists.filter(x => x._id !== listId));
             })
             .catch (err => {
@@ -125,7 +104,6 @@ export default function Main() {
     }
     
     function deleteItemAxios(itemId) {
-        console.log('ITEM I AXIOS', itemId);
         axios
             .delete(`/items/${itemId}`)
             .then((res) => {
@@ -134,23 +112,16 @@ export default function Main() {
                     return x._id !== itemId;  
                 })
                 );
-                console.log(itemId);
             })
             .catch(err => {
                 console.error(err);
             })
     }
 
-    // Vid flytt
-    // 1. Post till listan där itemet skall flyttas till
-    // 2. delete på item som skall flyttas från listId
-    // 
-
-    // Plocka bort div och input och add icon läggs direkt i header?
-
     return (
         <>
             <header>  
+                <div className="container_h4"><h4>Trello</h4></div>
                 <div className="container_top">
                     <input 
                         className="input"

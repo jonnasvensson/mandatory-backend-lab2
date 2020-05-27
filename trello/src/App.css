@@ -1,6 +1,7 @@
 .App {
     background-color: #112632;
     min-height: 100vh;
+    font-family: 'Indie Flower';
 }
 
 .add_item {
@@ -23,10 +24,17 @@ button {
     position: absolute;
     bottom: 0px;
     right: 0px;
+    border-radius: 4px;
+    border: 1px solid #112632;
 }
 
 button:hover {
     background-color: white;
+}
+
+.cancel {
+    position: absolute;
+    right: 0px;
 }
 
 .container_lists {
@@ -42,10 +50,21 @@ button:hover {
     transform: translate(50%, -50%);
 }
 
-.container_textfiled {
+.container_level {
     display: flex;
     position: relative;
     margin-top: 10px;
+}
+
+.container_h4 {
+    color: white;
+    position: absolute;
+    right: 10px;
+    bottom: 0px;
+}
+
+h4 {
+    margin: 0px;
 }
 
 .list {
@@ -55,8 +74,9 @@ button:hover {
     border-radius: 4px;
     color: white;
     position: relative;
-    padding: 4px;
+    padding: 8px;
     margin: 4px;
+    font-family: 'Abel';
 }
 
 .input {
@@ -75,11 +95,6 @@ button:hover {
 
 .input:focus {
     background-color: white;
-}
-
-button {
-    border-radius: 4px;
-    border: 1px solid #112632;
 }
 
 .card {
@@ -120,6 +135,12 @@ p {
     margin-left: -200px;
     padding: 30px;
     border-radius: 4px;
+}
+
+@media screen and (max-width: 800px) {
+    .popUp {
+        width: 20rem;
+    }
 }
 
 select {

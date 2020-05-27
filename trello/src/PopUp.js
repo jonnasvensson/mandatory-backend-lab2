@@ -10,7 +10,6 @@ export default function Popup({
     deleteItemAxios, 
     axiosPutItem,
     itemId, 
-    list, 
     lists, 
     deactivateModal,
     handleExit,
@@ -45,6 +44,7 @@ export default function Popup({
             listId: selectedList,  
         }
         axiosPutItem(clickedItem._id, upDatedItem);
+        deactivateModal();
     }
 
     const handleSave = (itemId) => {
@@ -54,10 +54,8 @@ export default function Popup({
             listId: state.listId,  
         }        
         axiosPutItem(itemId, upDatedItem);
-        // kalla på axios getlists?
     }
 
-    
     return (
             <AriaModal
                 titleText="demo one"
@@ -67,14 +65,16 @@ export default function Popup({
                 className="modal"
             >
             <div className="popUp">
-                <CancelIcon className="icon" onClick={handleExit} />
-                <input 
-                    className="input"
-                    type="text" 
-                    name="title"
-                    value={state.title} 
-                    onChange={handleChange}/>
-                <div className="container_textfiled">
+                <div className="container_level">
+                    <input 
+                        className="input"
+                        type="text" 
+                        name="title"
+                        value={state.title} 
+                        onChange={handleChange}/>
+                    <CancelIcon className="cancel" onClick={handleExit} />
+                </div>
+                <div className="container_level">
                     <textarea 
                         className="textfield"
                         type="text" 
@@ -83,7 +83,7 @@ export default function Popup({
                         value={state.description} />
                     <button onClick={(e) => handleSave(clickedItem._id)}>update</button>
                 </div>
-                <div className="container_textfiled">
+                <div className="container_level">
                     <select onChange={(e) => setSelectedList(e.target.value)} name="" id="">
                     <option value="none"> </option>
                         { 
@@ -94,7 +94,7 @@ export default function Popup({
                 </div>
                 <div className="bottom_container">
                     <DeleteIcon className="icon" onClick={(e) => handleDelete(clickedItem._id)} />
-                    <p>Created: {clickedItem.date}</p>
+                    <p>{clickedItem.date}</p>
                 </div>
             </div>
             </AriaModal>   

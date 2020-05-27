@@ -14,6 +14,10 @@ export default function AddItems({ postItemAxios, listId }) {
             description: "",
             listId: listId,
         }
+        if (inputValue.trim().length === 0) {
+            setInputValue("");
+            return;
+        }
         postItemAxios(item, listId);
         setInputValue("");
     }

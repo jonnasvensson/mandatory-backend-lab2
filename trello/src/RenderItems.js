@@ -18,17 +18,12 @@ export default function RenderItems({
     lists }) {
     
     const [modalActive, setModalActive] = useState(false)
-//    const [showPopUp, setShowPopUp] = useState(null);
     const [clickedItem, setclickedItem] = useState(null);
     
-    const handleShowPopUp = (item, itemId, list) => {
-        //console.log(itemId);
-        console.log('ITEM', item);
-        //console.log('LIST I HANDLESHOWPOPUP', list);
+    const handleShowPopUp = (item) => {
         
         setModalActive(true);
-        //setShowPopUp(itemId);
-        setclickedItem(item, itemId);   //skicka med itemId här? för att kunna plocka bort setShowpopUp?
+        setclickedItem(item); 
     }
 
     const deactivateModal = () => {
