@@ -21,7 +21,6 @@ export default function RenderItems({
     const [clickedItem, setclickedItem] = useState(null);
     
     const handleShowPopUp = (item) => {
-        
         setModalActive(true);
         setclickedItem(item); 
     }

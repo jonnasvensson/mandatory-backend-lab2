@@ -11,43 +11,47 @@ const MONGODB = require('./db')
 app.get('/lists', async (req, res) => {
     console.log('DB connected');
     const data = await MONGODB.getLists();
-    data ? res.status(200).send(data) : res.status(400).end();
+    if (!data) {
+        res.status(500).end();
+    }
+    res.status(200).send(data);
 });
 
 app.get('/items', async (req, res) => {
     const data = await MONGODB.getItems();
-    data ? res.status(200).send(data) : res.status(400).end();
+    if (!data) {
+        res.status(500).end();
+    }
+    res.status(200).send(data);
 })
 
-app.post('/lists/', async (req, res) => {
-    if (!req.body.title === String) {
-        return res.status(400).end();
-    }
+app.post('/lists/', async (req, res) => {   
     let newList = {
         title: req.body.title,
     }
     const data = await MONGODB.postList(newList);
-    res.status(200).send(newList);
+    if (!newList || !data) {
+        res.status(400).end();
+        return;
+    }
+    res.status(201).send(newList);
 });
 
 
 app.post('/items/:listId', async (req, res) => {
     let listId = req.params.listId;
-
     let date = new Date().toDateString();
-    if (!req.body.title === String) {
-        return res.status(400).end();
-    }
     let item = {
         title: req.body.title,
         description: req.body.description,
         date: date,
         listId: listId
-    }    
-    console.log(item);
-    
+    }        
+    if (!item) {
+        return res.status(400).end();
+    }
     const data = await MONGODB.postItem(item);
-    res.status(200).send(item);
+    res.status(201).send(item);
 });
 
 app.put('/items/:itemId', async (req, res) => {
@@ -57,14 +61,28 @@ app.put('/items/:itemId', async (req, res) => {
         description: req.body.description,
         listId: req.body.listId, 
     }
+    if (!upDatedItem) {
+        return res.status(400).end();
+    }
     const data = await MONGODB.putItem(itemId, upDatedItem);
-    res.status(204).send(data);
+    res.status(200).send(data);
 })
 
 app.delete('/lists/:listId', async (req, res) => {
     let listId = req.params.listId;
-    // lägg in deletMany för att få bort alla items i listan!
     const data = await MONGODB.deleteList(listId);
+    console.log('DATA', data);
+    
+    console.log(listId);
+    
+    if (data) {
+        
+        const data = await MONGODB.deleteListItem(listId);
+        console.log('I DATA', data);
+
+//        res.status(204).send(data);
+
+    }
     res.status(204).send(data);
 })
 

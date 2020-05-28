@@ -18,6 +18,8 @@ export default function Main() {
         axios
             .get('/lists')
             .then((res) => {
+                console.log(res.data);
+                
                 setLists(res.data);
             })
             .catch(err => {
@@ -138,7 +140,6 @@ export default function Main() {
                 items={items} 
                 axiosLists={axiosLists}
                 axiosPutItem={axiosPutItem} 
-                //axiosMoveItem={axiosMoveItem} 
                 postItemAxios={postItemAxios} 
                 handleDeleteList={handleDeleteList} 
                 deleteItemAxios={deleteItemAxios} />

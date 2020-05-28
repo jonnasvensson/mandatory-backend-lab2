@@ -65,20 +65,34 @@ async function putItem(itemId, upDatedItem) {
         .collection('items')
         .findOneAndUpdate({_id: ObjectId(itemId)}, { $set: upDatedItem })
     } catch (error) {
-        console.log(error);      
+        console.log(error);
+        throw error;   
     }
 }
-
 
 async function deleteList(listId) {
     try {
         const result = await db
         .collection('lists')
         .deleteOne({_id: ObjectId(listId)})
-    } catch {
+    } catch (error){
+        console.log(error);
         return error;
     }
 }
+
+async function deleteListItem(listId) {
+    try {
+        const result = await db
+        .collection('items')
+        .deleteMany({listId: listId})
+    } catch (error) {
+        console.log(error);
+        
+        return error;
+    }
+}
+// kalla på funktionen igen..
 
 async function deleteItem(itemId) {
     try {
@@ -97,6 +111,7 @@ module.exports.postItem = postItem;
 module.exports.postList = postList;
 module.exports.putItem = putItem;
 module.exports.deleteList = deleteList;
+module.exports.deleteListItem = deleteListItem;
 module.exports.deleteItem = deleteItem;
 
 
