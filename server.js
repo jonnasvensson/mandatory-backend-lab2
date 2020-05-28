@@ -81,7 +81,6 @@ app.delete('/lists/:listId', async (req, res) => {
     const data = await MONGODB.deleteList(listId);
     if (data) {
         const data = await MONGODB.deleteListItem(listId);
-        return data;
         //res.status(204).send(data);
     }
     res.status(204).send(data);

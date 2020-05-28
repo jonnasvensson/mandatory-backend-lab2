@@ -75,6 +75,7 @@ async function deleteList(listId) {
         const result = await db
         .collection('lists')
         .deleteOne({_id: ObjectId(listId)})
+        return data;    //return data gör att jag kan deleta alla items!
     } catch (error){
         console.log(error);
         return error;
@@ -95,7 +96,6 @@ async function deleteListItem(listId) {
 }
 
 async function deleteItem(itemId) {
-    
     try {
         const result = await db
         .collection('items')
