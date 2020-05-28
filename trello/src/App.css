@@ -137,12 +137,6 @@ p {
     border-radius: 4px;
 }
 
-@media screen and (max-width: 800px) {
-    .popUp {
-        width: 20rem;
-    }
-}
-
 select {
     border-radius: 4px;
     margin-top: 10px;

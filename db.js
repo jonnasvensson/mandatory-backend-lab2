@@ -85,20 +85,22 @@ async function deleteListItem(listId) {
     try {
         const result = await db
         .collection('items')
-        .deleteMany({listId: listId})
+        .deleteMany({listId: ObjectId(listId)})
+        return data;
     } catch (error) {
         console.log(error);
         
         return error;
     }
 }
-// kalla på funktionen igen..
 
 async function deleteItem(itemId) {
+    
     try {
         const result = await db
         .collection('items')
         .deleteOne({_id: ObjectId(itemId)})
+        return result;
     } catch {
         throw error;
     }

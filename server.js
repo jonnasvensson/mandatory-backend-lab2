@@ -9,7 +9,6 @@ app.use(express.json());
 const MONGODB = require('./db')
 
 app.get('/lists', async (req, res) => {
-    console.log('DB connected');
     const data = await MONGODB.getLists();
     if (!data) {
         res.status(500).end();
@@ -29,9 +28,13 @@ app.post('/lists/', async (req, res) => {
     let newList = {
         title: req.body.title,
     }
-    const data = await MONGODB.postList(newList);
-    if (!newList || !data) {
+    if (!newList) {
         res.status(400).end();
+        return;
+    }
+    const data = await MONGODB.postList(newList);
+    if (!data) {
+        res.status(500).end();
         return;
     }
     res.status(201).send(newList);
@@ -51,6 +54,7 @@ app.post('/items/:listId', async (req, res) => {
         return res.status(400).end();
     }
     const data = await MONGODB.postItem(item);
+ 
     res.status(201).send(item);
 });
 
@@ -65,25 +69,23 @@ app.put('/items/:itemId', async (req, res) => {
         return res.status(400).end();
     }
     const data = await MONGODB.putItem(itemId, upDatedItem);
+    if (!data) {
+        res.status(500).end();
+        return;
+    }
     res.status(200).send(data);
 })
 
 app.delete('/lists/:listId', async (req, res) => {
     let listId = req.params.listId;
     const data = await MONGODB.deleteList(listId);
-    console.log('DATA', data);
-    
-    console.log(listId);
-    
     if (data) {
-        
         const data = await MONGODB.deleteListItem(listId);
-        console.log('I DATA', data);
-
-//        res.status(204).send(data);
-
+        return data;
+        //res.status(204).send(data);
     }
     res.status(204).send(data);
+
 })
 
 app.delete('/items/:itemId', async (req, res) => {
