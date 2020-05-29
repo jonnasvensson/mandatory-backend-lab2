@@ -125,14 +125,20 @@ export default function Main() {
             <header>  
                 <div className="container_h4"><h4>Trello</h4></div>
                 <div className="container_top">
+                    <form action="" onSubmit={handleCreateNewList}>
                     <input 
+                        placeholder="new list"
                         className="input"
                         type="text" 
                         value={inputValue} 
                         onChange={(e) => setInputValue(e.target.value)}/>
-                    <AddCircleIcon 
-                        className="icon top" 
-                        onClick={handleCreateNewList}/> 
+                    <button 
+                        type="submit"
+                        className="button_icon">
+                        <AddCircleIcon 
+                            className="icon top" /> 
+                    </button>
+                    </form>
                 </div>    
             </header>
             <RenderLists 

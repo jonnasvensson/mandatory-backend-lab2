@@ -49,7 +49,7 @@ export default function Popup({
         getItemsFromAxios();
     }
 
-    const handleSave = (itemId) => {
+    const handleUpdate = (itemId) => {
         let upDatedItem = {
             title: state.title,
             description: state.description,
@@ -83,7 +83,7 @@ export default function Popup({
                         name="description"
                         onChange={handleChange} 
                         value={state.description} />
-                    <button onClick={(e) => handleSave(clickedItem._id)}>update</button>
+                    <button className="button" onClick={(e) => handleUpdate(clickedItem._id)}>update</button>
                 </div>
                 <div className="popup_container_section">
                     <select onChange={(e) => setSelectedList(e.target.value)} name="" id="">
@@ -92,7 +92,7 @@ export default function Popup({
                             lists.map((list) => <option key={list._id} value={list._id} >{list.title}</option>)
                         }
                     </select>
-                    <button onClick={(e) => handleMove(selectedList, itemId)}>move item</button>
+                    <button className="button" onClick={(e) => handleMove(selectedList, itemId)}>move item</button>
                 </div>
                 <div className="popup_container_section bottom">
                     <DeleteIcon className="icon" onClick={(e) => handleDelete(clickedItem._id)} />

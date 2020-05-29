@@ -26,6 +26,7 @@ export default function AddItems({ postItemAxios, listId }) {
         <>
             <section className="container_add_item">
                 <input
+                    placeholder="add todo"
                     type="text"
                     className="input card"
                     value={inputValue}

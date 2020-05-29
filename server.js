@@ -4,7 +4,25 @@ const PORT = 8099;
 
 const http = require('http').createServer(app);
 
-app.use(express.json());
+app.use((req, res, next) => {
+    if (req.is('json')) {
+        let data = "";
+        req.on('data', chunk =>{
+            data += chunk.toString();
+        });
+        req.on('end', () => {
+            try {
+            data = JSON.parse(data);
+            req.body = data;
+            next();
+            } catch (error)  {
+            res.status(400).end();
+            }
+        })
+    } else {
+        next();
+    }
+})
 
 const MONGODB = require('./db')
 
@@ -54,7 +72,6 @@ app.post('/items/:listId', async (req, res) => {
         return res.status(400).end();
     } 
     const data = await MONGODB.postItem(item);
-
     res.status(201).send(item);
 });
 
