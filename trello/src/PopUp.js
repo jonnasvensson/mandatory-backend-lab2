@@ -7,6 +7,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 export default function Popup({ 
     clickedItem, 
     axiosLists,
+    getItemsFromAxios,
     deleteItemAxios, 
     axiosPutItem,
     itemId, 
@@ -45,6 +46,7 @@ export default function Popup({
         }
         axiosPutItem(clickedItem._id, upDatedItem);
         deactivateModal();
+        getItemsFromAxios();
     }
 
     const handleSave = (itemId) => {
@@ -64,8 +66,8 @@ export default function Popup({
                 underlayStyle={{ paddingTop: '2em' }}
                 className="modal"
             >
-            <div className="popUp">
-                <div className="container_level">
+            <div className="popup_container">
+                <div className="popup_container_section">
                     <input 
                         className="input"
                         type="text" 
@@ -74,7 +76,7 @@ export default function Popup({
                         onChange={handleChange}/>
                     <CancelIcon className="cancel" onClick={handleExit} />
                 </div>
-                <div className="container_level">
+                <div className="popup_container_section">
                     <textarea 
                         className="textfield"
                         type="text" 
@@ -83,7 +85,7 @@ export default function Popup({
                         value={state.description} />
                     <button onClick={(e) => handleSave(clickedItem._id)}>update</button>
                 </div>
-                <div className="container_level">
+                <div className="popup_container_section">
                     <select onChange={(e) => setSelectedList(e.target.value)} name="" id="">
                     <option value="none"> </option>
                         { 
@@ -92,7 +94,7 @@ export default function Popup({
                     </select>
                     <button onClick={(e) => handleMove(selectedList, itemId)}>move item</button>
                 </div>
-                <div className="bottom_container">
+                <div className="popup_container_section bottom">
                     <DeleteIcon className="icon" onClick={(e) => handleDelete(clickedItem._id)} />
                     <p>{clickedItem.date}</p>
                 </div>

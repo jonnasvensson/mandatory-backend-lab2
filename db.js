@@ -64,6 +64,7 @@ async function putItem(itemId, upDatedItem) {
         const result = await db
         .collection('items')
         .findOneAndUpdate({_id: ObjectId(itemId)}, { $set: upDatedItem })
+        return result;
     } catch (error) {
         console.log(error);
         throw error;   
@@ -75,7 +76,7 @@ async function deleteList(listId) {
         const result = await db
         .collection('lists')
         .deleteOne({_id: ObjectId(listId)})
-        return data;    //return data gör att jag kan deleta alla items!
+        return result;    //return data gör att jag kan deleta alla items!
     } catch (error){
         console.log(error);
         return error;
@@ -87,7 +88,6 @@ async function deleteListItem(listId) {
         const result = await db
         .collection('items')
         .deleteMany({listId: ObjectId(listId)})
-        return data;
     } catch (error) {
         console.log(error);
         

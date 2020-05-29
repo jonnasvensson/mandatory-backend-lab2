@@ -7,6 +7,7 @@ import PopUp from './PopUp'
 export default function RenderItems({ 
     items, 
     axiosLists,
+    getItemsFromAxios,
     axiosPutItem, 
     postItemAxios, 
     deleteItemAxios,
@@ -52,7 +53,9 @@ export default function RenderItems({
 
     return (
         <>
-            {mappedItems}
+            <section className="container_items">
+                {mappedItems}
+            </section>
             <AddItems 
                 items={items} 
                 postItemAxios={postItemAxios} 
@@ -67,6 +70,7 @@ export default function RenderItems({
                                 itemId={itemId} 
                                 itemTitle={itemTitle} 
                                 axiosLists={axiosLists}
+                                getItemsFromAxios={getItemsFromAxios}
                                 axiosPutItem={axiosPutItem}
                                 deleteItemAxios={deleteItemAxios}
                                 axiosMoveItem={axiosMoveItem} /> : null

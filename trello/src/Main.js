@@ -139,6 +139,7 @@ export default function Main() {
                 lists={lists} 
                 items={items} 
                 axiosLists={axiosLists}
+                getItemsFromAxios={getItemsFromAxios}
                 axiosPutItem={axiosPutItem} 
                 postItemAxios={postItemAxios} 
                 handleDeleteList={handleDeleteList} 

@@ -8,6 +8,7 @@ export default function RenderLists({
         lists, 
         items, 
         axiosLists,
+        getItemsFromAxios,
         postItemAxios, 
         deleteItemAxios, 
         handleShowPopUp, 
@@ -18,24 +19,29 @@ export default function RenderLists({
     {
 
     const mappedLists = lists.map((list) => {        
-        return <div    className="list" 
-                        key={list._id}>
-                <h4>{list.title}</h4>
-            <RenderItems 
-                list={list} 
-                lists={lists}
-                listId={list._id} 
-                items={items} 
-                axiosLists={axiosLists}
-                postItemAxios={postItemAxios} 
-                deleteItemAxios={deleteItemAxios} 
-                handleShowPopUp={handleShowPopUp}
-                axiosPutItem={axiosPutItem}
-                axiosMoveItem={axiosMoveItem} />
-            <div    className="container_deleteIcon">
-                <DeleteIcon className="icon" onClick={() =>handleDeleteList(list._id)} />
-            </div>
-        </div>
+        return (
+                <div    
+                    className="list_container" 
+                    key={list._id}>
+                    <h4>{list.title}</h4>
+                    <RenderItems 
+                        list={list} 
+                        lists={lists}
+                        listId={list._id} 
+                        items={items} 
+                        axiosLists={axiosLists}
+                        getItemsFromAxios={getItemsFromAxios}
+                        postItemAxios={postItemAxios} 
+                        deleteItemAxios={deleteItemAxios} 
+                        handleShowPopUp={handleShowPopUp}
+                        axiosPutItem={axiosPutItem}
+                        axiosMoveItem={axiosMoveItem} />
+                    <div    
+                        className="container_deleteIcon">
+                        <DeleteIcon className="icon" onClick={() =>handleDeleteList(list._id)} />
+                    </div>
+                </div>
+                )
         }
     );
     

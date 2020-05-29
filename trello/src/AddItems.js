@@ -24,14 +24,14 @@ export default function AddItems({ postItemAxios, listId }) {
 
     return (
         <>
-            <div className="add_item">
+            <section className="container_add_item">
                 <input
                     type="text"
                     className="input card"
                     value={inputValue}
                     onChange={handleChange} />
                     <AddCircleIcon className="icon" onClick={handleSubmit} />
-            </div>    
+            </section>    
         </>
     )
 }

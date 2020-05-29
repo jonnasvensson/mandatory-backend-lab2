@@ -28,7 +28,7 @@ app.post('/lists/', async (req, res) => {
     let newList = {
         title: req.body.title,
     }
-    if (!newList) {
+    if (!newList.title) {
         res.status(400).end();
         return;
     }
@@ -50,11 +50,11 @@ app.post('/items/:listId', async (req, res) => {
         date: date,
         listId: listId
     }        
-    if (!item) {
+     if (!item.title.length) {
         return res.status(400).end();
-    }
+    } 
     const data = await MONGODB.postItem(item);
- 
+
     res.status(201).send(item);
 });
 
@@ -65,7 +65,11 @@ app.put('/items/:itemId', async (req, res) => {
         description: req.body.description,
         listId: req.body.listId, 
     }
-    if (!upDatedItem) {
+    if (!upDatedItem.title.length) {
+        return res.status(400).end();
+    }
+
+    if (!upDatedItem.description.length) {
         return res.status(400).end();
     }
     const data = await MONGODB.putItem(itemId, upDatedItem);
@@ -81,7 +85,6 @@ app.delete('/lists/:listId', async (req, res) => {
     const data = await MONGODB.deleteList(listId);
     if (data) {
         const data = await MONGODB.deleteListItem(listId);
-        //res.status(204).send(data);
     }
     res.status(204).send(data);
 
