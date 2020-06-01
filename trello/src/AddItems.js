@@ -31,7 +31,11 @@ export default function AddItems({ postItemAxios, listId }) {
                     className="input card"
                     value={inputValue}
                     onChange={handleChange} />
-                    <AddCircleIcon className="icon" onClick={handleSubmit} />
+                <button 
+                    onClick={handleSubmit}
+                    className="button_icon">    
+                    <AddCircleIcon className="icon"  />
+                </button>
             </section>    
         </>
     )

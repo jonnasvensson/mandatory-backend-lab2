@@ -5,6 +5,14 @@ const PORT = 8099;
 const http = require('http').createServer(app);
 
 app.use((req, res, next) => {
+    let start = Date.now();
+    res.once('finish', () => {
+        console.log(req.method, req.path, res.statusCode, (Date.now() - start) + 'ms');
+    });
+    next();
+});
+
+app.use((req, res, next) => {
     if (req.is('json')) {
         let data = "";
         req.on('data', chunk =>{

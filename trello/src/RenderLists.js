@@ -38,7 +38,11 @@ export default function RenderLists({
                         axiosMoveItem={axiosMoveItem} />
                     <div    
                         className="container_deleteIcon">
-                        <DeleteIcon className="icon" onClick={() =>handleDeleteList(list._id)} />
+                        <button
+                            className="button_icon"
+                            onClick={() =>handleDeleteList(list._id)}>
+                            <DeleteIcon className="icon"  />
+                        </button>
                     </div>
                 </div>
                 )

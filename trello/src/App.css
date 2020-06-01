@@ -54,6 +54,14 @@
     transform: translate(50%, -50%);
 }
 
+.delete {
+    color: #112632;
+}
+
+#demo-one-modal {
+    display: block;
+}
+
 .popup_container_section {
     display: flex;
     justify-content: space-between;
@@ -69,6 +77,15 @@
     position: absolute;
     right: 10px;
     bottom: 0px;
+}
+
+header {
+    display: flex;
+    height: 150px;
+    position: relative;
+    border-bottom-right-radius: 250px 100px;
+    background-color: #1f3947;
+    margin-bottom: 30px;
 }
 
 h4 {
@@ -104,6 +121,7 @@ h4 {
 
 .icon {
     cursor: pointer;
+    color: white;
 }
 
 .item {
@@ -112,6 +130,8 @@ h4 {
     display: flex;
     justify-content: space-between;
     border-radius: 4px;
+    border: none;
+    width: 100%;
     padding: 2px 8px 2px 8px;
 }
 
@@ -135,6 +155,7 @@ p {
     transform: translate(50%, -50%);
     padding: 30px;
     border-radius: 4px;
+    z-index: 99;
 }
 
 .container_popup {
@@ -146,15 +167,6 @@ select {
     cursor: pointer;
     height: 30px;
     margin-top: 21px;
-}
-
-header {
-    display: flex;
-    height: 150px;
-    position: relative;
-    border-bottom-right-radius: 250px 100px;
-    background-color: #1f3947;
-    margin-bottom: 30px;
 }
 
 .textfield {
