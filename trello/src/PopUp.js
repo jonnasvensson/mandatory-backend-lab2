@@ -61,7 +61,6 @@ export default function Popup({
         <AriaModal
             titleText="demo one"
             onExit={deactivateModal}
-            initialFocus="#demo-one-deactivate"
             underlayStyle={{ paddingTop: '2em' }}
             className="modal"
         >

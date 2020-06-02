@@ -6,6 +6,7 @@
 
 .container_add_item {
     display: flex;
+    position: relative;
 }
 
 .bottom_container {
@@ -52,6 +53,25 @@
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);
+}
+
+.errorMSG {
+    color: red;
+    position: absolute;
+    top: 60%;
+    right: 43%;
+}
+
+.errorMSGpop {
+    color: red;
+    position: absolute;
+    top: 43%;
+}
+
+.errorMSGadd {
+    color: red;
+    position: absolute;
+    top: 29px;
 }
 
 .delete {
@@ -147,7 +167,7 @@ p {
 .popup_container {
     background-color: white;
     height: 300px;
-    width: 300px;
+    width: 40%;
     border: 2px solid #112632;
     position: absolute;
     top: 50%;

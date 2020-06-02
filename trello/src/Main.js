@@ -8,6 +8,7 @@ export default function Main() {
     const [lists, setLists] = useState([]);
     const [items, setItems] = useState([]);
     const [inputValue, setInputValue] = useState("");
+    const [errorMSG, setErrorMSG] = useState(false);
 
     useEffect(() => {
         axiosLists();
@@ -38,7 +39,8 @@ export default function Main() {
             })
     }
 
-    const handleCreateNewList = (newList) => {
+    const handleCreateNewList = (e, newList) => {
+        e.preventDefault();
         postListAxios(newList);        
         setInputValue("");
         getItemsFromAxios();
@@ -55,9 +57,10 @@ export default function Main() {
         }
         if (inputValue.trim().length === 0) {
             setInputValue("");
+            setErrorMSG(true);
             return;
         }
-
+        
         axios
             .post('lists/', newList)
             .then((res) => {
@@ -129,6 +132,8 @@ export default function Main() {
                     <input 
                         placeholder="new list"
                         className="input"
+                        required
+                        minLength="1"
                         type="text" 
                         value={inputValue} 
                         onChange={(e) => setInputValue(e.target.value)}/>
@@ -140,6 +145,9 @@ export default function Main() {
                     </button>
                     </form>
                 </div>    
+                {
+                    errorMSG ? <p className="errorMSG" >Enter name of the list</p> : null     
+                }
             </header>
             <RenderLists 
                 lists={lists} 

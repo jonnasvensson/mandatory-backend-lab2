@@ -94,9 +94,6 @@ app.put('/items/:itemId', async (req, res) => {
         return res.status(400).end();
     }
 
-    if (!upDatedItem.description.length) {
-        return res.status(400).end();
-    }
     const data = await MONGODB.putItem(itemId, upDatedItem);
     if (!data) {
         res.status(500).end();
